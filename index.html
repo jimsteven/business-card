@@ -83,6 +83,7 @@
             gap: 10px;
             margin-bottom: 24px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .socials a {
@@ -109,35 +110,6 @@
             width: 16px;
             height: 16px;
             fill: currentColor;
-        }
-
-        .qr-section {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-
-        .qr-code {
-            background: #fff;
-            border-radius: 6px;
-            padding: 6px;
-            line-height: 0;
-            flex-shrink: 0;
-        }
-
-        .qr-code canvas { display: block; }
-
-        .qr-text {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            line-height: 1.5;
         }
 
         .save-btn {
@@ -194,39 +166,10 @@
         </a>
     </div>
 
-    <div class="qr-section">
-        <div class="qr-code">
-            <canvas id="qrCanvas"></canvas>
-        </div>
-        <div class="qr-text">Scan to<br>open this card</div>
-    </div>
-
     <button class="save-btn" onclick="saveContact()">Save Contact</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
-    const CARD_URL = 'https://jimsteven.github.io/business-card/';
-
-    function renderQR() {
-        const canvas = document.getElementById('qrCanvas');
-        if (window.QRCode && canvas) {
-            QRCode.toCanvas(canvas, CARD_URL, {
-                width: 88,
-                margin: 0,
-                color: { dark: '#000000', light: '#ffffff' }
-            }, function (err) {
-                if (err) console.error('QR error:', err);
-            });
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', renderQR);
-    } else {
-        renderQR();
-    }
-
     function saveContact() {
         const vcard = [
             'BEGIN:VCARD',
