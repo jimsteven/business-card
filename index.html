@@ -29,6 +29,7 @@
             max-width: 380px;
             width: 100%;
             position: relative;
+            text-align: center;
         }
 
         .amp-logo {
@@ -37,22 +38,19 @@
             color: rgba(255, 255, 255, 0.35);
             letter-spacing: -0.5px;
             margin-bottom: 36px;
+            text-align: left;
         }
 
         .avatar {
-            width: 88px;
-            height: 88px;
+            width: 96px;
+            height: 96px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            background: #1a1a1a;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 30px;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.7);
-            font-family: 'Instrument Serif', serif;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            display: block;
+            object-fit: cover;
         }
 
         .name {
@@ -139,7 +137,7 @@
 <div class="card">
     <div class="amp-logo">amp</div>
 
-    <div class="avatar">J</div>
+    <img src="avatar.png" alt="Jim Espelico" class="avatar">
     <div class="name">Jim Espelico</div>
     <div class="handle">@jimsteven</div>
 
