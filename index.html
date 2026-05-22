@@ -3,229 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jim Steven Espelico — Business Card</title>
+    <title>Jim Espelico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0f0f0f;
+            background: #000;
             padding: 20px;
+            color: #fff;
         }
 
         .card {
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
-            border-radius: 24px;
-            padding: 48px 40px;
-            max-width: 420px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 28px;
+            max-width: 380px;
             width: 100%;
-            box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.05),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
             position: relative;
-            overflow: hidden;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 20%, rgba(0, 217, 255, 0.06) 0%, transparent 50%);
-            pointer-events: none;
+        .amp-logo {
+            font-size: 18px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: -0.5px;
+            margin-bottom: 36px;
         }
 
         .avatar {
-            width: 90px;
-            height: 90px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #00d9ff, #0066ff);
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 24px;
-            font-size: 36px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -1px;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Instrument Serif', serif;
         }
 
         .name {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ffffff;
+            font-family: 'Instrument Serif', serif;
+            font-size: 38px;
+            font-weight: 400;
+            color: #fff;
             letter-spacing: -0.5px;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .handle {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
             margin-bottom: 28px;
         }
 
         .divider {
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: rgba(255, 255, 255, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
             margin-bottom: 24px;
+            flex-wrap: wrap;
         }
 
-        .info-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
-        .info-list li {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .info-list .icon {
-            width: 36px;
-            height: 36px;
+        .socials a {
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.15s ease;
+            text-decoration: none;
         }
 
-        .info-list .icon svg {
+        .socials a:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .socials svg {
             width: 16px;
             height: 16px;
-            fill: #00d9ff;
-        }
-
-        .info-list a, .info-list span {
-            color: #b0b8c8;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 400;
-            transition: color 0.2s;
-        }
-
-        .info-list a:hover {
-            color: #00d9ff;
+            fill: currentColor;
         }
 
         .qr-section {
-            text-align: center;
-            padding-top: 8px;
-        }
-
-        .qr-label {
-            font-size: 11px;
-            color: #5a6272;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
             margin-bottom: 16px;
         }
 
         .qr-code {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 12px;
-            display: inline-block;
+            background: #fff;
+            border-radius: 6px;
+            padding: 6px;
+            line-height: 0;
+            flex-shrink: 0;
         }
 
-        .qr-code canvas {
-            display: block;
+        .qr-code canvas { display: block; }
+
+        .qr-text {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.5;
         }
 
         .save-btn {
             display: block;
             width: 100%;
-            margin-top: 24px;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #00d9ff, #0066ff);
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
             color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
-            transition: opacity 0.2s, transform 0.2s;
-            letter-spacing: 0.3px;
+            transition: all 0.15s ease;
+            letter-spacing: 0.2px;
         }
 
         .save-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .save-btn:active {
-            transform: translateY(0);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="avatar">JS</div>
-    <div class="name">Jim Steven Espelico</div>
+    <div class="amp-logo">amp</div>
+
+    <div class="avatar">J</div>
+    <div class="name">Jim Espelico</div>
+    <div class="handle">@jimsteven</div>
 
     <div class="divider"></div>
 
-    <ul class="info-list">
-        <li>
-            <div class="icon">
-                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-            </div>
-            <a href="tel:09669875456">09669875456</a>
-        </li>
-        <li>
-            <div class="icon">
-                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            </div>
-            <a href="mailto:jim@ampcode.com">jim@ampcode.com</a>
-        </li>
-        <li>
-            <div class="icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            </div>
-            <a href="https://ampcode.com" target="_blank">ampcode.com</a>
-        </li>
-    </ul>
+    <div class="socials">
+        <a href="mailto:jim@ampcode.com" title="Email" aria-label="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+        <a href="tel:09669875456" title="Phone" aria-label="Phone">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/jim_the_explorer" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.86 5.86 0 0 0-2.13 1.38A5.86 5.86 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.32.8.74 1.47 1.38 2.13.66.64 1.33 1.06 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 0 0 2.13-1.38 5.86 5.86 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 0 0-1.38-2.13A5.86 5.86 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/tasktamerpro" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+        <a href="https://x.com/AmpCode" target="_blank" rel="noopener" title="X (AmpCode)" aria-label="X (AmpCode)">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://ampcode.com/@jimsteven" target="_blank" rel="noopener" title="Ampcode" aria-label="Ampcode">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13H5.5L12 7z"/></svg>
+        </a>
+    </div>
 
     <div class="qr-section">
-        <div class="qr-label">Scan to view this card</div>
         <div class="qr-code">
             <canvas id="qrCanvas"></canvas>
         </div>
+        <div class="qr-text">Scan to<br>open this card</div>
     </div>
 
-    <button class="save-btn" onclick="saveContact()">Save Contact (vCard)</button>
+    <button class="save-btn" onclick="saveContact()">Save Contact</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
-    const pageUrl = window.location.href;
-    QRCode.toCanvas(document.getElementById('qrCanvas'), pageUrl, {
-        width: 160,
-        margin: 0,
-        color: { dark: '#1a1a2e', light: '#ffffff' }
-    });
+    const CARD_URL = 'https://jimsteven.github.io/business-card/';
+
+    function renderQR() {
+        const canvas = document.getElementById('qrCanvas');
+        if (window.QRCode && canvas) {
+            QRCode.toCanvas(canvas, CARD_URL, {
+                width: 88,
+                margin: 0,
+                color: { dark: '#000000', light: '#ffffff' }
+            }, function (err) {
+                if (err) console.error('QR error:', err);
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderQR);
+    } else {
+        renderQR();
+    }
 
     function saveContact() {
         const vcard = [
             'BEGIN:VCARD',
             'VERSION:3.0',
-            'FN:Jim Steven Espelico',
-            'N:Espelico;Jim Steven;;;',
-            'TEL:09669875456',
+            'FN:Jim Espelico',
+            'N:Espelico;Jim;;;',
+            'TEL;TYPE=CELL:09669875456',
             'EMAIL:jim@ampcode.com',
-            'URL:https://ampcode.com',
-            'TITLE:Software Engineer',
+            'URL:https://ampcode.com/@jimsteven',
+            'URL:https://www.instagram.com/jim_the_explorer',
+            'URL:https://www.linkedin.com/in/tasktamerpro',
             'END:VCARD'
         ].join('\n');
 
@@ -233,7 +245,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'jim_steven_espelico.vcf';
+        a.download = 'jim_espelico.vcf';
         a.click();
         URL.revokeObjectURL(url);
     }
