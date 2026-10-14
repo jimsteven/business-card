@@ -2,48 +2,218 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jim Espelico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <title>Jim Steven Espelico · Amp</title>
+    <meta name="description" content="Jim Steven Espelico — Co-founder, Operations Coordinator at Amp. Save my contact and find my social links.">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Jim Steven Espelico · Amp">
+    <meta property="og:description" content="Co-founder, Operations Coordinator. Save my contact and find my social links.">
+    <meta property="og:url" content="https://jimsteven.github.io/business-card/">
+    <meta property="og:image" content="https://jimsteven.github.io/business-card/avatar.jpg">
+    <meta name="twitter:card" content="summary">
+    <link rel="apple-touch-icon" href="avatar.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        html, body { background: #000; }
 
         body {
             font-family: 'Inter', system-ui, sans-serif;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #000;
-            padding: 20px;
+            padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
             color: #fff;
+            overflow-x: hidden;
         }
 
-        .card {
+        /* Faint drifting dust behind the card */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: -50%;
+            background-image:
+                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.35), transparent 60%),
+                radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,.25), transparent 60%),
+                radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,.2), transparent 60%),
+                radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,.3), transparent 60%);
+            background-size: 220px 220px, 300px 300px, 380px 380px, 260px 260px;
+            animation: dust 90s linear infinite;
+            pointer-events: none;
+            opacity: .5;
+        }
+
+        @keyframes dust { to { transform: translate3d(-220px, -300px, 0); } }
+
+        .stage {
+            perspective: 1100px;
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+        }
+
+        .shadow {
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            bottom: -18px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(closest-side, rgba(255,255,255,.07), transparent);
+            filter: blur(6px);
+            transform: translate3d(calc(var(--ry, 0) * -1px), 0, 0) scale(calc(1 - var(--lift, 0) * .12));
+            opacity: calc(.9 - var(--lift, 0) * .4);
+            pointer-events: none;
+        }
+
+        .tilt {
+            position: relative;
+            transform-style: preserve-3d;
+            transform:
+                translate3d(0, calc(var(--lift, 0) * -10px), calc(var(--lift, 0) * 40px))
+                rotateX(calc(var(--rx, 0) * 1deg))
+                rotateY(calc(var(--ry, 0) * 1deg));
+            will-change: transform;
+            animation: deal 1.1s cubic-bezier(.2, 1.35, .35, 1) backwards;
+        }
+
+        @keyframes deal {
+            0%   { opacity: 0; transform: translate3d(0, 70vh, 0) rotateX(55deg) rotateZ(-14deg) scale(.8); }
+            60%  { opacity: 1; }
+            100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0) rotateZ(0) scale(1); }
+        }
+
+        .flipper {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform .8s cubic-bezier(.3, 1.4, .4, 1);
+        }
+
+        .flipped .flipper { transform: rotateY(180deg); }
+
+        .face {
+            position: relative;
             background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             padding: 28px;
-            max-width: 380px;
-            width: 100%;
-            position: relative;
             text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            overflow: hidden;
+            isolation: isolate;
         }
 
-        .amp-logo {
-            color: rgba(255, 255, 255, 0.35);
-            margin-bottom: 36px;
-            text-align: left;
-            line-height: 0;
+        /* Foil rim that shifts with the tilt */
+        .face::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: conic-gradient(from calc(var(--ry, 0) * 8deg + var(--rx, 0) * 6deg),
+                rgba(255,255,255,.08), rgba(255,255,255,.08) 20%,
+                rgba(255,255,255,.55) 30%, rgba(170,200,255,.35) 35%,
+                rgba(255,255,255,.08) 45%, rgba(255,255,255,.08) 70%,
+                rgba(255,220,170,.4) 80%, rgba(255,255,255,.08) 90%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 3;
         }
 
-        .amp-logo svg {
-            height: 22px;
-            width: auto;
-            display: inline-block;
+        /* Periodic glint sweeping across the card */
+        .face::after {
+            content: '';
+            position: absolute;
+            inset: -40%;
+            background: linear-gradient(115deg,
+                transparent 42%,
+                rgba(255,255,255,.0) 45%,
+                rgba(255,255,255,.10) 49%,
+                rgba(200,220,255,.16) 50%,
+                rgba(255,255,255,.10) 51%,
+                transparent 56%);
+            transform: translateX(-60%);
+            animation: glint 5.5s ease-in-out 1.3s infinite;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 2;
         }
+
+        @keyframes glint {
+            0%   { transform: translateX(-60%); }
+            35%, 100% { transform: translateX(60%); }
+        }
+
+        /* Glare that follows the pointer / phone tilt */
+        .glare {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at var(--gx, 50%) var(--gy, 30%),
+                rgba(255,255,255,.14), rgba(255,255,255,.04) 30%, transparent 60%);
+            opacity: calc(.25 + var(--lift, 0) * .75);
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .face > .content { position: relative; z-index: 1; }
+
+        .back {
+            position: absolute;
+            inset: 0;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flipped .front, .back { pointer-events: none; }
+        .flipped .back { pointer-events: auto; }
+
+        .back .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .back .topbar { width: 100%; margin-bottom: 0; }
+
+        .amp-logo { color: rgba(255, 255, 255, 0.35); line-height: 0; }
+        .amp-logo svg { height: 22px; width: auto; display: inline-block; }
+
+        .flip-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(255,255,255,.03);
+            color: rgba(255,255,255,.6);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: all .15s ease;
+        }
+
+        .flip-btn:hover, .flip-btn:focus-visible { color: #fff; border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.07); }
+        .flip-btn svg { width: 16px; height: 16px; }
 
         .avatar {
             width: 130px;
@@ -51,9 +221,10 @@
             border-radius: 50%;
             background: #1a1a1a;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            margin: 10px auto 20px;
+            margin: 4px auto 20px;
             overflow: hidden;
             display: block;
+            transform: translateZ(30px);
         }
 
         .avatar img {
@@ -68,24 +239,21 @@
             font-family: 'Instrument Serif', serif;
             font-size: 38px;
             font-weight: 400;
-            color: #fff;
             letter-spacing: -0.5px;
             line-height: 1.1;
-            margin-bottom: 28px;
+            margin-bottom: 8px;
         }
 
-        .handle {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.4);
-            font-weight: 400;
-            margin-bottom: 28px;
+        .title {
+            font-size: 13px;
+            color: rgba(255,255,255,.55);
+            letter-spacing: .2px;
+            margin-bottom: 24px;
         }
 
-        .divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.08);
-            margin-bottom: 20px;
-        }
+        .title b { color: rgba(255,255,255,.85); font-weight: 500; }
+
+        .divider { height: 1px; background: rgba(255, 255, 255, 0.08); margin-bottom: 20px; }
 
         .socials {
             display: flex;
@@ -109,20 +277,22 @@
             text-decoration: none;
         }
 
-        .socials a:hover {
+        .socials a:hover, .socials a:focus-visible {
             background: rgba(255, 255, 255, 0.06);
             color: #fff;
             border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
 
-        .socials svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-        }
+        .socials svg { width: 16px; height: 16px; fill: currentColor; }
 
-        .save-btn {
-            display: block;
+        .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -135,73 +305,339 @@
             cursor: pointer;
             transition: all 0.15s ease;
             letter-spacing: 0.2px;
+            text-decoration: none;
         }
 
-        .save-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
+        .btn.primary { background: #fff; color: #000; border-color: #fff; }
+        .btn:hover, .btn:focus-visible { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); }
+        .btn.primary:hover, .btn.primary:focus-visible { background: rgba(255,255,255,.88); }
+        .btn svg { width: 15px; height: 15px; }
+
+        :focus-visible { outline: 2px solid rgba(255,255,255,.7); outline-offset: 2px; }
+
+        .qr {
+            width: 168px;
+            height: 168px;
+            padding: 14px;
+            background: #fff;
+            border-radius: 14px;
+            transform: translateZ(30px);
+        }
+
+        .qr svg, .qr img { width: 100%; height: 100%; display: block; }
+
+        .back .hint { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.5; }
+        .back .url { font-size: 12px; color: rgba(255,255,255,.4); word-break: break-all; }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: max(24px, env(safe-area-inset-bottom));
+            transform: translate(-50%, 20px);
+            background: #fff;
+            color: #000;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 999px;
+            opacity: 0;
+            transition: all .25s ease;
+            pointer-events: none;
+        }
+
+        .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+        canvas.sparks { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tilt { animation: none; }
+            .flipper { transition: none; }
+            .face::after, body::before { animation: none; }
+            .face::after { display: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="amp-logo">
-        <svg viewBox="0 0 281 124" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M236.014 0C260.431 9.71106e-05 280.602 17.4115 280.603 44.7432C280.602 73.5337 260.065 94.1657 233.52 94.166C224.158 94.166 215.639 92.4222 208.63 88.4902C202.886 85.2698 198.203 80.6054 194.919 74.3379L188.115 121.822L187.946 123.016H174.214L174.448 121.423L191.772 2.49414H205.372L203.937 11.3369C212.143 3.86078 223.2 0.000153635 236.014 0ZM47.082 0.154297C56.4435 0.154297 65.0012 1.8991 72.0488 5.84863C77.8222 9.08305 82.5323 13.7713 85.8271 20.085L88.1201 3.69238L88.2861 2.49316H101.863L89.1611 90.6328L88.9873 91.8262H75.4092L76.7227 82.8555C68.5854 90.4564 57.3981 94.3231 44.5889 94.3232C20.1709 94.3232 0.000167223 76.9087 0 49.5771C0.000149745 20.7854 20.54 0.154871 47.082 0.154297ZM116.234 90.6357L116.061 91.8271H102.485L115.351 3.68555L115.521 2.49414H129.083L116.234 90.6357ZM140.673 90.6357L140.499 91.8271H126.924L139.789 3.68555L139.96 2.49414H153.521L140.673 90.6357ZM177.958 2.49414L165.108 90.6357L164.935 91.8271H151.36L164.225 3.68555L164.396 2.49414H177.958ZM48.4854 11.9844C27.8638 11.985 14.0133 28.3799 14.0127 48.9521C14.0127 57.7907 16.8094 66.1771 22.3145 72.334C27.7973 78.4657 36.0631 82.4932 47.2402 82.4932C67.8534 82.4925 81.7122 65.9487 81.7129 45.3682C81.7129 35.4076 78.2493 27.0792 72.4131 21.2441C66.5794 15.4088 58.2871 11.9844 48.4854 11.9844ZM233.362 11.8291C212.749 11.8297 198.89 28.3716 198.89 48.9521C198.89 58.9123 202.356 67.2403 208.189 73.0742C214.023 78.9107 222.315 82.3358 232.116 82.3359C252.738 82.3355 266.589 65.9407 266.59 45.3682C266.59 36.5296 263.795 28.1424 258.29 21.9863C252.807 15.8551 244.542 11.8291 233.362 11.8291Z"/></svg>
+<div class="stage" id="stage">
+    <div class="shadow"></div>
+    <div class="tilt" id="tilt">
+        <div class="flipper">
+            <!-- Front -->
+            <div class="face front">
+                <div class="glare"></div>
+                <div class="content">
+                    <div class="topbar">
+                        <div class="amp-logo" aria-label="Amp">
+                            <svg viewBox="0 0 281 124" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M236.014 0C260.431 9.71106e-05 280.602 17.4115 280.603 44.7432C280.602 73.5337 260.065 94.1657 233.52 94.166C224.158 94.166 215.639 92.4222 208.63 88.4902C202.886 85.2698 198.203 80.6054 194.919 74.3379L188.115 121.822L187.946 123.016H174.214L174.448 121.423L191.772 2.49414H205.372L203.937 11.3369C212.143 3.86078 223.2 0.000153635 236.014 0ZM47.082 0.154297C56.4435 0.154297 65.0012 1.8991 72.0488 5.84863C77.8222 9.08305 82.5323 13.7713 85.8271 20.085L88.1201 3.69238L88.2861 2.49316H101.863L89.1611 90.6328L88.9873 91.8262H75.4092L76.7227 82.8555C68.5854 90.4564 57.3981 94.3231 44.5889 94.3232C20.1709 94.3232 0.000167223 76.9087 0 49.5771C0.000149745 20.7854 20.54 0.154871 47.082 0.154297ZM116.234 90.6357L116.061 91.8271H102.485L115.351 3.68555L115.521 2.49414H129.083L116.234 90.6357ZM140.673 90.6357L140.499 91.8271H126.924L139.789 3.68555L139.96 2.49414H153.521L140.673 90.6357ZM177.958 2.49414L165.108 90.6357L164.935 91.8271H151.36L164.225 3.68555L164.396 2.49414H177.958ZM48.4854 11.9844C27.8638 11.985 14.0133 28.3799 14.0127 48.9521C14.0127 57.7907 16.8094 66.1771 22.3145 72.334C27.7973 78.4657 36.0631 82.4932 47.2402 82.4932C67.8534 82.4925 81.7122 65.9487 81.7129 45.3682C81.7129 35.4076 78.2493 27.0792 72.4131 21.2441C66.5794 15.4088 58.2871 11.9844 48.4854 11.9844ZM233.362 11.8291C212.749 11.8297 198.89 28.3716 198.89 48.9521C198.89 58.9123 202.356 67.2403 208.189 73.0742C214.023 78.9107 222.315 82.3358 232.116 82.3359C252.738 82.3355 266.589 65.9407 266.59 45.3682C266.59 36.5296 263.795 28.1424 258.29 21.9863C252.807 15.8551 244.542 11.8291 233.362 11.8291Z"/></svg>
+                        </div>
+                        <button class="flip-btn" type="button" data-flip aria-label="Show QR code">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="avatar"><img src="avatar.jpg" alt="Jim Steven Espelico" width="130" height="130"></div>
+                    <h1 class="name">Jim Steven Espelico</h1>
+                    <p class="title">Co‑founder, Operations Coordinator · <b>Amp</b></p>
+
+                    <div class="divider"></div>
+
+                    <nav class="socials" aria-label="Contact and social links">
+                        <a href="mailto:jim@ampcode.com" title="jim@ampcode.com" aria-label="Email jim@ampcode.com">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </a>
+                        <a href="tel:+639669875456" title="0966 987 5456" aria-label="Call 0966 987 5456">
+                            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/jim_the_explorer" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.86 5.86 0 0 0-2.13 1.38A5.86 5.86 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.32.8.74 1.47 1.38 2.13.66.64 1.33 1.06 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 0 0 2.13-1.38 5.86 5.86 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 0 0-1.38-2.13A5.86 5.86 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/tasktamerpro" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+                        </a>
+                        <a href="https://x.com/AmpCode" target="_blank" rel="noopener" title="X (AmpCode)" aria-label="X (AmpCode)">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="https://ampcode.com/@jimsteven" target="_blank" rel="noopener" title="Amp profile" aria-label="Amp profile">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13H5.5L12 7z"/></svg>
+                        </a>
+                    </nav>
+
+                    <div class="actions">
+                        <a class="btn primary" href="jim-steven-espelico.vcf">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                            Save Contact
+                        </a>
+                        <button class="btn" type="button" data-share>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4M12 2v13"/></svg>
+                            Share Card
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back -->
+            <div class="face back" aria-hidden="true">
+                <div class="glare"></div>
+                <div class="content">
+                    <div class="topbar">
+                        <div class="amp-logo" aria-label="Amp">
+                            <svg viewBox="0 0 281 124" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+                        </div>
+                        <button class="flip-btn" type="button" data-flip aria-label="Show card front" tabindex="-1">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg>
+                        </button>
+                    </div>
+                    <div class="qr"><img src="qr.svg" alt="QR code for jimsteven.github.io/business-card"></div>
+                    <p class="hint">Scan with any phone camera<br>to open my card</p>
+                    <p class="url">jimsteven.github.io/business-card</p>
+                    <div class="actions">
+                        <a class="btn primary" href="jim-steven-espelico.vcf" tabindex="-1">Save Contact</a>
+                        <button class="btn" type="button" data-share tabindex="-1">Share Card</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="avatar"><img src="avatar.png" alt="Jim Steven Espelico"></div>
-    <div class="name">Jim Steven Espelico</div>
-
-    <div class="divider"></div>
-
-    <div class="socials">
-        <a href="mailto:jim@ampcode.com" title="Email" aria-label="Email">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </a>
-        <a href="tel:09669875456" title="Phone" aria-label="Phone">
-            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/jim_the_explorer" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.86 5.86 0 0 0-2.13 1.38A5.86 5.86 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.32.8.74 1.47 1.38 2.13.66.64 1.33 1.06 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 0 0 2.13-1.38 5.86 5.86 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 0 0-1.38-2.13A5.86 5.86 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
-        </a>
-        <a href="https://www.linkedin.com/in/tasktamerpro" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
-        </a>
-        <a href="https://x.com/AmpCode" target="_blank" rel="noopener" title="X (AmpCode)" aria-label="X (AmpCode)">
-            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://ampcode.com/@jimsteven" target="_blank" rel="noopener" title="Ampcode" aria-label="Ampcode">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13H5.5L12 7z"/></svg>
-        </a>
-    </div>
-
-    <button class="save-btn" onclick="saveContact()">Save Contact</button>
 </div>
 
-<script>
-    function saveContact() {
-        const vcard = [
-            'BEGIN:VCARD',
-            'VERSION:3.0',
-            'FN:Jim Steven Espelico',
-            'N:Espelico;Jim;Steven;;',
-            'TEL;TYPE=CELL:09669875456',
-            'EMAIL:jim@ampcode.com',
-            'URL:https://ampcode.com/@jimsteven',
-            'URL:https://www.instagram.com/jim_the_explorer',
-            'URL:https://www.linkedin.com/in/tasktamerpro',
-            'END:VCARD'
-        ].join('\n');
+<canvas class="sparks" id="sparks" aria-hidden="true"></canvas>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-        const blob = new Blob([vcard], { type: 'text/vcard' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'jim_espelico.vcf';
-        a.click();
-        URL.revokeObjectURL(url);
+<script>
+(() => {
+    const CARD_URL = 'https://jimsteven.github.io/business-card/';
+    const stage = document.getElementById('stage');
+    const tilt = document.getElementById('tilt');
+    const root = document.documentElement;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Reuse the front logo on the back.
+    const backLogo = document.querySelector('.back .amp-logo svg');
+    backLogo.innerHTML = document.querySelector('.front .amp-logo svg').innerHTML;
+
+    // ---- Spring-driven tilt / lift --------------------------------------
+    const MAX = 14;
+    const s = { rx: 0, ry: 0, lift: 0, gx: 50, gy: 30 };
+    const v = { rx: 0, ry: 0, lift: 0, gx: 0, gy: 0 };
+    const t = { rx: 0, ry: 0, lift: 0, gx: 50, gy: 30 };
+    let pointerActive = false, gyroActive = false, running = false, last = 0;
+
+    function setTargetFromPoint(x, y) {
+        const r = stage.getBoundingClientRect();
+        const px = Math.min(Math.max((x - r.left) / r.width, 0), 1);
+        const py = Math.min(Math.max((y - r.top) / r.height, 0), 1);
+        t.ry = (px - .5) * 2 * MAX;
+        t.rx = (.5 - py) * 2 * MAX;
+        t.gx = px * 100;
+        t.gy = py * 100;
+        kick();
     }
+
+    function apply() {
+        tilt.style.setProperty('--rx', s.rx.toFixed(2));
+        tilt.style.setProperty('--ry', s.ry.toFixed(2));
+        stage.style.setProperty('--lift', s.lift.toFixed(3));
+        stage.style.setProperty('--ry', s.ry.toFixed(2));
+        tilt.style.setProperty('--gx', s.gx.toFixed(1) + '%');
+        tilt.style.setProperty('--gy', s.gy.toFixed(1) + '%');
+    }
+
+    function step(now) {
+        const dt = Math.min((now - last) / 1000, 1 / 30);
+        last = now;
+        let moving = false;
+        for (const k in s) {
+            // Under-damped spring so the card settles with a small bounce.
+            const stiffness = k === 'lift' ? 120 : 170, damping = k === 'lift' ? 14 : 16;
+            const a = stiffness * (t[k] - s[k]) - damping * v[k];
+            v[k] += a * dt;
+            s[k] += v[k] * dt;
+            if (Math.abs(t[k] - s[k]) > .01 || Math.abs(v[k]) > .01) moving = true;
+        }
+        apply();
+        if (moving) requestAnimationFrame(step); else running = false;
+    }
+
+    function kick() {
+        if (reduce) { Object.assign(s, t); apply(); return; }
+        if (!running) { running = true; last = performance.now(); requestAnimationFrame(step); }
+    }
+
+    function release() {
+        pointerActive = false;
+        if (!gyroActive) { t.rx = 0; t.ry = 0; t.gx = 50; t.gy = 30; }
+        t.lift = 0;
+        kick();
+    }
+
+    stage.addEventListener('pointermove', e => {
+        pointerActive = true;
+        t.lift = 1;
+        setTargetFromPoint(e.clientX, e.clientY);
+        if (e.pointerType === 'mouse') sparkle(e.clientX, e.clientY, 1);
+    });
+    stage.addEventListener('pointerdown', e => {
+        t.lift = 1;
+        setTargetFromPoint(e.clientX, e.clientY);
+        sparkle(e.clientX, e.clientY, 8);
+    });
+    stage.addEventListener('pointerleave', release);
+    stage.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') release(); });
+    stage.addEventListener('pointercancel', release);
+
+    // ---- Phone tilt via gyroscope (iOS asks permission on first tap) ----
+    let baseBeta = null;
+    function onOrient(e) {
+        if (e.beta == null || pointerActive) return;
+        gyroActive = true;
+        if (baseBeta === null) baseBeta = e.beta;
+        const ry = Math.max(-1, Math.min(1, e.gamma / 30));
+        const rx = Math.max(-1, Math.min(1, (baseBeta - e.beta) / 30));
+        t.ry = ry * MAX;
+        t.rx = rx * MAX;
+        t.gx = 50 + ry * 50;
+        t.gy = 50 - rx * 50;
+        kick();
+    }
+    function enableGyro() {
+        if (reduce || !('DeviceOrientationEvent' in window)) return;
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission()
+                .then(r => { if (r === 'granted') addEventListener('deviceorientation', onOrient); })
+                .catch(() => {});
+        } else {
+            addEventListener('deviceorientation', onOrient);
+        }
+    }
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        addEventListener('touchend', enableGyro, { once: true });
+    } else {
+        enableGyro();
+    }
+
+    // ---- Flip -----------------------------------------------------------
+    const front = document.querySelector('.front');
+    const back = document.querySelector('.back');
+    document.querySelectorAll('[data-flip]').forEach(btn => btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const flipped = tilt.classList.toggle('flipped');
+        front.setAttribute('aria-hidden', flipped);
+        back.setAttribute('aria-hidden', !flipped);
+        front.querySelectorAll('a, button').forEach(el => el.tabIndex = flipped ? -1 : 0);
+        back.querySelectorAll('a, button').forEach(el => el.tabIndex = flipped ? 0 : -1);
+        (flipped ? back : front).querySelector('[data-flip]').focus({ preventScroll: true });
+        const r = btn.getBoundingClientRect();
+        sparkle(r.left + r.width / 2, r.top + r.height / 2, 18);
+    }));
+
+    // ---- Share ----------------------------------------------------------
+    const toast = document.getElementById('toast');
+    function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(showToast.t);
+        showToast.t = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+    document.querySelectorAll('[data-share]').forEach(btn => btn.addEventListener('click', async () => {
+        const data = { title: 'Jim Steven Espelico · Amp', text: 'Jim Steven Espelico — Co-founder, Operations Coordinator at Amp', url: CARD_URL };
+        if (navigator.share) {
+            try { await navigator.share(data); } catch (_) {}
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(CARD_URL);
+            showToast('Card link copied');
+        } catch (_) {
+            prompt('Copy my card link:', CARD_URL);
+        }
+    }));
+
+    // ---- Glitter particles ---------------------------------------------
+    const cv = document.getElementById('sparks');
+    const ctx = cv.getContext('2d');
+    const parts = [];
+    let sparkRunning = false;
+    function resize() {
+        const d = Math.min(devicePixelRatio || 1, 2);
+        cv.width = innerWidth * d;
+        cv.height = innerHeight * d;
+        ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    resize();
+    addEventListener('resize', resize);
+
+    function sparkle(x, y, n) {
+        if (reduce) return;
+        for (let i = 0; i < n; i++) {
+            const a = Math.random() * Math.PI * 2, sp = 20 + Math.random() * 90;
+            parts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 30, life: 1, size: 0.6 + Math.random() * 1.6, hue: Math.random() < .5 ? 210 : 40 });
+        }
+        if (!sparkRunning) { sparkRunning = true; let prev = performance.now(); requestAnimationFrame(function draw(now) {
+            const dt = Math.min((now - prev) / 1000, 1 / 30); prev = now;
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = parts.length - 1; i >= 0; i--) {
+                const p = parts[i];
+                p.life -= dt * 1.4;
+                if (p.life <= 0) { parts.splice(i, 1); continue; }
+                p.vy += 60 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+                ctx.globalAlpha = p.life;
+                ctx.fillStyle = `hsl(${p.hue} 90% 85%)`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * (0.5 + p.life), 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+            if (parts.length) requestAnimationFrame(draw); else sparkRunning = false;
+        }); }
+    }
+
+    // Small sparkle burst when the card lands after dealing in.
+    if (!reduce) setTimeout(() => {
+        const r = stage.getBoundingClientRect();
+        sparkle(r.left + r.width / 2, r.top + 40, 24);
+    }, 900);
+})();
 </script>
 
 </body>

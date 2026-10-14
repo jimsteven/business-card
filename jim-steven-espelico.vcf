@@ -1,0 +1,19 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Jim Steven Espelico
+N:Espelico;Jim;Steven;;
+ORG:Amp
+TITLE:Co-founder\, Operations Coordinator
+TEL;TYPE=CELL,VOICE:+639669875456
+EMAIL;TYPE=INTERNET,WORK:jim@ampcode.com
+URL:https://jimsteven.github.io/business-card/
+item1.URL:https://ampcode.com/@jimsteven
+item1.X-ABLabel:Amp
+item2.URL:https://www.instagram.com/jim_the_explorer
+item2.X-ABLabel:Instagram
+item3.URL:https://www.linkedin.com/in/tasktamerpro
+item3.X-ABLabel:LinkedIn
+item4.URL:https://x.com/AmpCode
+item4.X-ABLabel:X
+NOTE:Business card: https://jimsteven.github.io/business-card/
+END:VCARD
